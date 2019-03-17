@@ -39,3 +39,8 @@ Route::post('/createClass', 'ClassesController@createClass')->name('Classes');
 Route::get('/Classes', function(){
     return view('Classes.Createclasses');
 })->name('Classes');
+
+Route::resource('/teacher' , 'teacherController');
+
+
+Route::resource('/mangeProfile' , 'mangeProfileController');
