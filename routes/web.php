@@ -35,7 +35,4 @@ Route::get('/admin_home', function(){
 Route::get('/teacher_home', function(){
     return view('AdminPanels.teacher');
 })->name('teacher_home');
-Route::post('/createClass', 'ClassesController@createClass')->name('Classes');
-Route::get('/Classes', function(){
-    return view('Classes.Createclasses');
-})->name('Classes');
+Route::resource('Classes','ClassesController');

@@ -16,7 +16,7 @@
  * User: mina
  * Date: 3/16/19
  * Time: 7:14 PM
- */<form action="{{URL::to('/createClass')}}" method='POST'>
+ */<form action="{{url('/Classes')}}" method='POST'>
     <input type="number" name="grade">
     <input type="number" name="counter"><input type="hidden" name="_token" value="{{ app('session')->token() }}">
 
