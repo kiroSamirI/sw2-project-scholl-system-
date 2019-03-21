@@ -36,3 +36,8 @@ Route::get('/teacher_home', function(){
     return view('AdminPanels.teacher');
 })->name('teacher_home');
 Route::resource('Classes','ClassesController');
+
+Route::resource('/teacher' , 'teacherController');
+
+
+Route::resource('/mangeProfile' , 'mangeProfileController');
