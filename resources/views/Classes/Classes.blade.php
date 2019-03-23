@@ -13,7 +13,9 @@
 
     @foreach($classes as $class)
       <div>
-        <h2>   {{$class->id}}  & {{$class->grade}}&{{$class->counter}}</h2>
+          <h2>   {{$class->id}}  & {{$class->grade}}&{{$class->counter}}&{{$class->NStudent}}&{{$class->Floor}}&
+              <a href="{{action('ClassesController@edit',$class['id'])}}" class="btn btn-success"> Edit</a>
+          </h2>
       </div>
     @endforeach
 </body>
