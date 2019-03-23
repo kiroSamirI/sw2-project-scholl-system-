@@ -14,7 +14,8 @@ class teacherController extends Controller
      */
     public function index()
     {
-        //
+        $teacheres=teacher::all();
+        return view('teacher.teacheres')->with('classes',$teacheres);
     }
 
     /**
@@ -71,7 +72,8 @@ class teacherController extends Controller
      */
     public function edit($id)
     {
-        //
+        $teacher=teacher::find($id);
+        return view('teacher.teacheredit',compact('class','id'));
     }
 
     /**
@@ -83,7 +85,12 @@ class teacherController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $teacher =teacher::find($id);
+        $teacher->grade = $request->input('grade');
+        $teacher->counter = $request->input('counter');
+        $teacher->NStudent = $request->input('NStudent');
+        $teacher->Floor = $request->input('Floor');
+        return redirect('/teacher');
     }
 
     /**
