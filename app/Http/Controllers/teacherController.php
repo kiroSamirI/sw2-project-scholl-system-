@@ -14,7 +14,8 @@ class teacherController extends Controller
      */
     public function index()
     {
-        //
+        $teacheres=User::where('user_type' , 'teacher')->get();
+        return view('teacher.teacheres')->with('teacheres',$teacheres);
     }
 
     /**
@@ -48,7 +49,7 @@ class teacherController extends Controller
         $user->password = $hashesdPasswoord;
         $user->user_type = "teacher";
         $user->save();
-        
+
         return redirect('/teacher/create');
     }
 
@@ -71,7 +72,8 @@ class teacherController extends Controller
      */
     public function edit($id)
     {
-        //
+        $teachers=User::find($id);
+        return view('teacher.teacheredit')->with('teachers',$teachers);
     }
 
     /**
@@ -83,7 +85,12 @@ class teacherController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user =User::find($id);
+        $teacher->grade = $request->input('grade');
+        $teacher->counter = $request->input('counter');
+        $teacher->NStudent = $request->input('NStudent');
+        $teacher->Floor = $request->input('Floor');
+        return redirect('/teacher');
     }
 
     /**
