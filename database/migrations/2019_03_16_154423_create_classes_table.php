@@ -17,6 +17,8 @@ class CreateClassesTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('grade');
             $table->bigInteger('counter');
+            $table->bigInteger('NStudent');
+            $table->bigInteger('Floor');
             $table->timestamps();
         });
     }

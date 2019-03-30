@@ -1,24 +1,14 @@
-<html>/**
-
-* Created by PhpStorm.
-* User: mina
-* Date: 3/16/19
-* Time: 7:14 PM
-*/
+<html>
 <head>
     <meta charset="utf-8">
 
 </head>
 <body>
-
-/**
- * Created by PhpStorm.
- * User: mina
- * Date: 3/16/19
- * Time: 7:14 PM
- */<form action="{{URL::to('/createClass')}}" method='POST'>
-    <input type="number" name="grade">
-    <input type="number" name="counter"><input type="hidden" name="_token" value="{{ app('session')->token() }}">
+<form action="{{url('/Classes')}}" method='POST'>
+    Grade<input type="number" name="grade">
+    Counter<input type="number" name="counter">
+    Number of student<input type="number" name="NStudent">
+    Floor<input type="number" name="Floor"><input type="hidden" name="_token" value="{{ app('session')->token() }}">
 
     <button type="submit" name="button">Add</button>
 </form>
