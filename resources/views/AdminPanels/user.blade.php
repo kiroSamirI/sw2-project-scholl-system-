@@ -324,10 +324,8 @@
 
     <!-- Main content -->
     <section class="content">
-      <h1>
-        user home
-      </h1>
-     
+      
+     @yield('content')
     </section>    
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">

@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\User;
-use Illuminate\Http\Request;
 
-class mangeProfileController extends Controller
+use Illuminate\Http\Request;
+use App\Subject;
+
+class subjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,7 +24,7 @@ class mangeProfileController extends Controller
      */
     public function create()
     {
-        
+        return view('subject.createSubject');
     }
 
     /**
@@ -34,7 +35,12 @@ class mangeProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,['name'=>'required','year'=>'required']);
+        $subject = new Subject();
+        $subject->name = $request->input('name');
+        $subject->year = $request->input('year');
+        $subject->save();
+        return view('subject.createSubject');
     }
 
     /**
@@ -45,9 +51,7 @@ class mangeProfileController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
-
-        return view('mangeProfile')->with('user' , $user);
+        //
     }
 
     /**
@@ -70,27 +74,7 @@ class mangeProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
-      
-        $this->validate($request, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
-            //'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-        
-        if($request->hasFile('image')){
-            
-            $file_full_name = $request->file('image')->getClientOriginalName();
-            $filename = pathinfo($file_full_name , PATHINFO_FILENAME);
-            $extention = $request->file('image')->getClientOriginalExtension();
-            $filenameStore = $filename . '_' . time() . '.'.$extention;
-            $path = $request->file('image')->storeAs('public/images' , $filenameStore);
-            $user->personal_photo = $filenameStore;
-        }
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->save();
-        return redirect('/mangeProfile/'. auth()->user()->id);
+        //
     }
 
     /**

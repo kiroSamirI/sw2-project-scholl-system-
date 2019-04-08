@@ -38,6 +38,6 @@ Route::get('/teacher_home', function(){
 Route::resource('Classes','ClassesController');
 
 Route::resource('/teacher' , 'teacherController');
-
+Route::resource('/subject' , 'subjectController');
 
 Route::resource('/mangeProfile' , 'mangeProfileController');

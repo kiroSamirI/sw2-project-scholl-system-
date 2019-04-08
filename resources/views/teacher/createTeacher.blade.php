@@ -18,12 +18,21 @@
         {{Form::password('password'  ,['class' => 'form-control'])}}
     </div>
     <div class="form-group">
-        {{Form::label('name' , 'confirm password')}}
+        {{Form::label('confirm password' , 'confirm password')}}
 
         {{Form::password('password_confirmation',['class' => 'form-control'])}}
     </div>
 
+    <div class="form-group">
+        {{Form::label('subject' , 'confirm password')}}
 
+        <select class="form-control" id="exampleFormControlSelect1" name="subject">
+            <option>select</option>
+            @foreach($subjects as $subject)
+                <option value=" {{$subject->id}}">{{$subject->name}}/{{$subject->year}}</option>
+            @endforeach
+        </select>
+    </div>
 
     <button type="submit" class="btn btn-primery">submit</button>
     {!! Form::close() !!}
