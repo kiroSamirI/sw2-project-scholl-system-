@@ -86,6 +86,7 @@ class ClassesController extends Controller
         $class->grade = $request->input('grade');
         $class->counter = $request->input('counter');
         $class->NStudent = $request->input('NStudent');
+
         $class->Floor = $request->input('Floor');
         return redirect('/Classes');
 
