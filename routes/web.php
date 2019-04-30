@@ -41,3 +41,10 @@ Route::resource('/teacher' , 'teacherController');
 
 
 Route::resource('/mangeProfile' , 'mangeProfileController');
+
+
+
+Route::view('/uploadhomework',"upload");
+
+
+Route::POST('/uploadhomework', 'Upload@add')->name('addhw');
