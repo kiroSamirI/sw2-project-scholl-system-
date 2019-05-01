@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'class_id',
     ];
 
     /**
@@ -50,5 +50,8 @@ class User extends Authenticatable
             return true;
         }
         return false;
+    }
+    public function Bus(){
+        return $this->belongsTo('App\Bus');
     }
 }

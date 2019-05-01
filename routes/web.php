@@ -38,6 +38,10 @@ Route::get('/teacher_home', function(){
 Route::resource('Classes','ClassesController');
 
 Route::resource('/teacher' , 'teacherController');
-
+Route::resource('/subject' , 'subjectController');
 
 Route::resource('/mangeProfile' , 'mangeProfileController');
+Route::resource('exam','examController');
+Route::resource('bus','busController');
+Route::get('/bus_list','busController@listForSubscrib');
+Route::post('/payment','paymentController@pay');

@@ -61,6 +61,24 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="subject" class="col-md-4 col-form-label text-md-right">{{ __('class') }}</label>
+
+                            <div class="col-md-6">
+                                <select class="form-control" id="exampleFormControlSelect1" name="class">
+                                    <option>select</option>
+                                    @foreach($classes as $class)
+                                        <option value=" {{$class->id}}">{{$class->grade}}/{{$class->counter}}</option>
+                                    @endforeach
+                                </select>
+                                @if ($errors->has('subject'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('subject') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

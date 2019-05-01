@@ -1,18 +1,37 @@
-<html>
-<head>
-    <meta charset="utf-8">
+@extends("AdminPanels.admin")
+@section('content')
+    {!! Form::open(array('action' => ["ClassesController@update",$class->id],'method' => 'POST' )) !!}
+    <div class="form-group">
+        {{Form::label('grade' , 'grade')}}
 
-</head>
-<body>
-<form action="{{action('ClassesController@update',$id)}}" method='POST'>
-    {{csrf_field()}}
-    Grade<input type="number" name="grade" value="{{$class->grade}}">
-    Counter<input type="number" name="counter" value="{{$class->counter}}">
-    Number of student<input type="number" name="NStudent" value="{{$class->NStudent}}">
-    Floor<input type="number" name="Floor" value="{{$class->Floor}}"><input type="hidden" name="_token" value="{{ app('session')->token() }}">
-    {{method_field('PUT')}}
-    <button type="submit" name="button">update</button>
-</form>
+        {{Form::number('grade' , "$class->grade" ,['class' => 'form-control'])}}
+    </div>
 
-</body>
-</html>
+    <div class="form-group">
+        {{Form::label('counter' , 'counter')}}
+
+        {{Form::number('counter' , "$class->counter" ,['class' => 'form-control'])}}
+    </div>
+    <div class="form-group">
+        {{Form::label('NO of students' , 'NO of students')}}
+
+        {{Form::number('NStudent' ,"$class->NStudent" ,['class' => 'form-control'])}}
+    </div>
+    <div class="form-group">
+        {{Form::label('Floor' , 'Floor')}}
+
+        {{Form::number('Floor',"$class->Floor",['class' => 'form-control'])}}
+    </div>
+{{Form::hidden('_method','PUT')}}
+
+
+    <button type="submit" class="btn btn-primery">submit</button>
+    {!! Form::close() !!}
+
+
+
+@endsection
+
+
+
+

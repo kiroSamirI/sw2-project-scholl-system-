@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\User;
 use Illuminate\Http\Request;
-
-class mangeProfileController extends Controller
+use App\Bus;
+class busController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,7 +24,7 @@ class mangeProfileController extends Controller
      */
     public function create()
     {
-        
+        return view('buses.createBus');
     }
 
     /**
@@ -34,7 +35,17 @@ class mangeProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $this->validate($request,[
+            'place'=>'required',
+            'price'=>'required',
+            //'unit'         => 'required'
+        ]);
+        $bus = new Bus;
+        $bus->price = $request->input('price');
+        $bus->place = $request->input('place');
+        $bus->save();
+        return view('buses.createBus');
     }
 
     /**
@@ -45,9 +56,16 @@ class mangeProfileController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
-
-        return view('mangeProfile')->with('user' , $user);
+        $bus = Bus::find($id);
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
+        //return $user->bus_id;
+        if ($bus->id == $user->bus_id)
+            return "error";
+        else{
+            //return 123;
+            return view('buses.pokeBus')->with('bus',$bus);
+        }
     }
 
     /**
@@ -70,27 +88,7 @@ class mangeProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
-      
-        $this->validate($request, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
-            //'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-        
-        if($request->hasFile('image')){
-            
-            $file_full_name = $request->file('image')->getClientOriginalName();
-            $filename = pathinfo($file_full_name , PATHINFO_FILENAME);
-            $extention = $request->file('image')->getClientOriginalExtension();
-            $filenameStore = $filename . '_' . time() . '.'.$extention;
-            $path = $request->file('image')->storeAs('public/images' , $filenameStore);
-            $user->personal_photo = $filenameStore;
-        }
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->save();
-        return redirect('/mangeProfile/'. auth()->user()->id);
+        //
     }
 
     /**
@@ -102,5 +100,11 @@ class mangeProfileController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function listForSubscrib()
+    {
+        $buses = Bus::all();
+        return view('buses.listBuses')->with('buses',$buses);
     }
 }

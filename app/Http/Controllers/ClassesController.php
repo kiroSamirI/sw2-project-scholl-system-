@@ -35,6 +35,7 @@ class ClassesController extends Controller
      */
     public function store(Request $request)
     {
+        
         $this->validate($request,['grade'=>'required','counter'=>'required']);
         $class = new Classes();
         $class->grade = $request->input('grade');
@@ -68,7 +69,7 @@ class ClassesController extends Controller
     public function edit($id)
     {
         $class=Classes::find($id);
-        return view('Classes.Classesedit',compact('class','id'));
+        return view('Classes.Classesedit')->with('class',$class);
     }
 
     /**
@@ -80,13 +81,15 @@ class ClassesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        $this->validate($request,['grade'=>'required','counter'=>'required']);
+        //return 123;
+        //$this->validate($request,['grade'=>'required','counter'=>'required']);
         $class =Classes::find($id);
+        //dd($class);
         $class->grade = $request->input('grade');
         $class->counter = $request->input('counter');
         $class->NStudent = $request->input('NStudent');
         $class->Floor = $request->input('Floor');
+        $class->save();
         return redirect('/Classes');
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\User;
+use App\Subject;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,8 @@ class teacherController extends Controller
      */
     public function create()
     {
-        return view('teacher.createTeacher');
+        $subjects = Subject::all();
+        return view('teacher.createTeacher')->with('subjects',$subjects);
     }
 
     /**
@@ -36,6 +38,7 @@ class teacherController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
         $this->validate($request, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -48,6 +51,7 @@ class teacherController extends Controller
         $hashesdPasswoord = Hash::make($request->input('password'));
         $user->password = $hashesdPasswoord;
         $user->user_type = "teacher";
+        $user->subject = $request->input('subject');
         $user->save();
 
         return redirect('/teacher/create');
@@ -72,8 +76,8 @@ class teacherController extends Controller
      */
     public function edit($id)
     {
-        $teachers=User::find($id);
-        return view('teacher.teacheredit')->with('teachers',$teachers);
+        $teacher=User::find($id);
+        return view('teacher.teacheredit')->with('teacher',$teacher);
     }
 
     /**
@@ -85,11 +89,20 @@ class teacherController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+            //'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            //'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
         $user =User::find($id);
-        $teacher->grade = $request->input('grade');
-        $teacher->counter = $request->input('counter');
-        $teacher->NStudent = $request->input('NStudent');
-        $teacher->Floor = $request->input('Floor');
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        if($request->input('password') != null && $request->input('password') == $request->input('conformation-password') )
+        {    
+            $hashesdPasswoord = Hash::make($request->input('password'));
+            $user->password = $hashesdPasswoord;
+        }
         return redirect('/teacher');
     }
 
