@@ -25,12 +25,6 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
-      </li>
       <li>
         <a class="dropdown-item" href="{{ route('logout') }}"
            onclick="event.preventDefault();
@@ -64,7 +58,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="../../storage/image/{{auth()->user()->personal_photo}}" class="img-circle elevation-2" alt="User Image">
+          <img src="../../storage/images/{{auth()->user()->personal_photo}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="" class="d-block">Alexander Pierce</a>
@@ -79,7 +73,7 @@
           
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-pie-chart"></i>
+              <i class="nav-icon fa fa-user"></i>
               <p>
                 teacher
                 <i class="right fa fa-angle-left"></i>
@@ -103,7 +97,7 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="" class="nav-link">
-              <i class="nav-icon fa fa-tree"></i>
+              <i class="nav-icon fa fa-book"></i>
               <p>
                 classes
                 <i class="fa fa-angle-left right"></i>
@@ -123,15 +117,26 @@
                 </a>
               </li>
             </ul>
+
           <li class="nav-item has-treeview">
             <a href="/subject/create" class="nav-link">
-              <i class="nav-icon fa fa-tree"></i>
+              <i class="nav-icon fa fa-book"></i>
               <p>
                 add subject
-                <i class="fa fa-angle-left right"></i>
+
               </p>
             </a>
           </li>
+          <li class="nav-item has-treeview">
+            <a href="/mangeProfile/{{auth()->user()->id}}" class="nav-link">
+              <i class="nav-icon fa fa-magnet"></i>
+              <p>
+                mange profile
+
+              </p>
+            </a>
+          </li>
+
           </li>
         </ul>
 

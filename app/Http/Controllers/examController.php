@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Exam;
+use App\Classes;
+use App\Subject;
 class examController extends Controller
 {
     /**
@@ -23,6 +25,7 @@ class examController extends Controller
      */
     public function create()
     {
+
         return view('exams.addQuestion');
     }
 
@@ -34,6 +37,7 @@ class examController extends Controller
      */
     public function store(Request $request)
     {
+
 
         $question_type=$request->input('test');
         $exam = new Exam;
@@ -53,6 +57,8 @@ class examController extends Controller
             $exam->wrong_answer1= $request->input('wrong_answer1');
             $exam->wrong_answer2= $request->input('wrong_answer2');
             $exam->wrong_answer3= $request->input('wrong_answer3');
+            $exam->class_id = auth()->user()->class_id;
+            $exam->subject_id = auth()->user()->subject;
             $exam->unit = $request->input('unit');
             $exam->question_type=$question_type;
 
@@ -73,6 +79,8 @@ class examController extends Controller
             }
 
             $exam->question_type=$question_type;
+            $exam->class_id = auth()->user()->class_id;
+            $exam->subject_id = auth()->user()->subject;
 
             $exam->unit = $request->input('unit');
             $exam->save();
@@ -86,8 +94,11 @@ class examController extends Controller
             //storing
             $exam->question = $request->input('complete_question');
             $exam->right_answer= $request->input('complete_answer');
-
+            $exam->class_id = $request->input('class');
             $exam->question_type=$question_type;
+            $exam->class_id = auth()->user()->class_id;
+            $exam->subject_id = auth()->user()->subject;
+
             $exam->unit = $request->input('unit');
             $exam->save();
         }
@@ -102,7 +113,19 @@ class examController extends Controller
      */
     public function show($id)
     {
-        //
+        $subject = Subject::where('id' , $id)->first();
+        $classes = Classes::where('grade' , $subject->year)->get();
+        $examQuestions = NULL;
+
+        foreach ($classes as $class){
+            //return $class->id;
+            $examQuestions = Exam::where('class_id' ,$class->id)->where('subject_id',$subject->id)->get();
+            if($examQuestions != []){
+                break;
+            }
+        }
+
+        return view('exams.solveExam')->with('examQuestions' , $examQuestions);
     }
 
     /**
@@ -137,5 +160,31 @@ class examController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function calaulate(Request $request){
+        $count = $request->input('count');
+        $result = 0;
+        for ($i=0; $i < $count ; $i++) {
+
+            if($request->input('answer'.$i) != null){
+                $arr = explode("_" , $request->input('answer' . $i));
+                //return $arr[0];
+                $question = exam::find($arr[1]);
+                if ($question->question_type == 'complete') {
+                    if($question->right_answer  == $request->input('Complete_answer' . $i))
+                        $result++;
+
+                }
+                else {
+                    if($question->right_answer  == $arr[0]){
+                        //return $question->right_answer . $arr[0];
+                        $result++;
+                    }
+                }
+
+            }
+        }
+        return $result;
     }
 }

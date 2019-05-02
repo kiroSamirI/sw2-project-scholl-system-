@@ -13,7 +13,7 @@ class mangeProfileController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**

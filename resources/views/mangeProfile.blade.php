@@ -4,7 +4,7 @@ $role = "AdminPanels." . $role;
 ?>
 @extends($role)
 @section('content')
-    {{$role}}
+
 <form method="POST" action="{{ url("/mangeProfile/$id") }}" enctype="multipart/form-data">
     name <input name="name" type="text" value= "{{$user->name}}" class="form-control" ><br>
     email <input type="email" name="email" value= "{{$user->email}}" class="form-control" ><br>

@@ -45,3 +45,5 @@ Route::resource('exam','examController');
 Route::resource('bus','busController');
 Route::get('/bus_list','busController@listForSubscrib');
 Route::post('/payment','paymentController@pay');
+
+Route::post('/calaulate','examController@calaulate');

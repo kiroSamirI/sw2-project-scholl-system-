@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 use App\User;
 use App\Subject;
+use App\Classes;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+
 
 class teacherController extends Controller
 {
@@ -27,7 +29,8 @@ class teacherController extends Controller
     public function create()
     {
         $subjects = Subject::all();
-        return view('teacher.createTeacher')->with('subjects',$subjects);
+        $classes = Classes::all();
+        return view('teacher.createTeacher')->with('subjects',$subjects)->with('classes',$classes);
     }
 
     /**
@@ -52,6 +55,7 @@ class teacherController extends Controller
         $user->password = $hashesdPasswoord;
         $user->user_type = "teacher";
         $user->subject = $request->input('subject');
+        $user->class_id = $request->input('class');
         $user->save();
 
         return redirect('/teacher/create');
